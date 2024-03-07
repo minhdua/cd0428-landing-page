@@ -22,13 +22,15 @@
  * Define Global Variables
  * 
 */
-
-
+const navbarList = document.getElementById('navbar__list');
+const sections = document.querySelectorAll('section');
+const navFragment = document.createDocumentFragment();
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
+
 
 
 
@@ -39,13 +41,51 @@
 */
 
 // build the nav
+// Dynamically build navigation menu based on sections
+sections.forEach(section => {
+    const navItemText = section.dataset.nav;
+    const navItemId = section.id;
+  
+    const listItem = document.createElement('li');
+    const linkItem = document.createElement('a');
+    linkItem.href = `#${navItemId}`;
+    linkItem.classList.add('menu__link');
+    linkItem.textContent = navItemText;
+  
+    listItem.appendChild(linkItem);
+    navFragment.appendChild(listItem);
+  });
 
-
+navbarList.appendChild(navFragment);
 // Add class 'active' to section when near top of viewport
-
+window.addEventListener('scroll', function() {
+    let foundSection;
+  
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top >= 0 && (foundSection == null || rect.top < foundSection.getBoundingClientRect().top)) {
+        foundSection = section;
+      }
+    });
+  
+    sections.forEach(section => {
+      if (section == foundSection) {
+        section.classList.add('your-active-class');
+      } else {
+        section.classList.remove('your-active-class');
+      }
+    });
+  });
 
 // Scroll to anchor ID using scrollTO event
-
+document.querySelectorAll('.navbar__menu a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const sectionId = this.getAttribute('href').slice(1);
+      const section = document.getElementById(sectionId);
+      section.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
 
 /**
  * End Main Functions
@@ -53,10 +93,26 @@
  * 
 */
 
-// Build menu 
+// Hide Navigation on Idle
+let isScrolling;
+document.addEventListener('scroll', function() {
+    window.clearTimeout(isScrolling);
+    document.querySelector('.navbar__menu').style.display = '';
+    isScrolling = setTimeout(function() {
+        document.querySelector('.navbar__menu').style.display = 'none';
+    }, 2000); // Adjust time as needed
+}, false);
 
-// Scroll to section on link click
-
-// Set sections as active
-
-
+// Scroll to Top Button
+window.onscroll = function() {scrollFunction()};
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+function topFunction() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+  

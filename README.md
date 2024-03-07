@@ -1,9 +1,10 @@
 # Landing Page Project
 
-## Instructions
+## Description
+This project is a dynamic landing page designed to enhance web development skills by integrating HTML, CSS, and JavaScript. It focuses on creating an interactive user experience through dynamically built navigation, section highlighting upon scrolling, and smooth scrolling to sections. The project emphasizes DOM manipulation, responsive design for optimal display across devices, and implementing best practices in code organization and documentation. This endeavor serves as a practical application of fundamental web technologies, aiming to prepare for more advanced projects involving frameworks and complex user interactions.
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## Installation
+Clone this repository and open `index.html` in your browser.
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+## Usage
+Navigate through the site using the dynamically built menu. Each section highlights as it comes into view.
