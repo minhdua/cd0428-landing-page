@@ -25,6 +25,14 @@
 const navbarList = document.getElementById('navbar__list');
 const sections = document.querySelectorAll('section');
 const navFragment = document.createDocumentFragment();
+const navLinks = document.querySelectorAll('nav ul li a');
+
+// Define options for the Intersection Observer
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.5
+};
 /**
  * End Global Variables
  * Start Helper Functions
@@ -77,15 +85,23 @@ window.addEventListener('scroll', function() {
     });
   });
 
+
 // Scroll to anchor ID using scrollTO event
 document.querySelectorAll('.navbar__menu a').forEach(link => {
     link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const sectionId = this.getAttribute('href').slice(1);
-      const section = document.getElementById(sectionId);
-      section.scrollIntoView({ behavior: 'smooth' });
+        e.preventDefault();
+
+        document.querySelectorAll('.navbar__menu a').forEach(navLink => {
+            navLink.classList.remove('active');
+        });
+
+        this.classList.add('active');
+
+        const sectionId = this.getAttribute('href').substring(1);
+        const section = document.getElementById(sectionId);
+        section.scrollIntoView({ behavior: 'smooth' });
     });
-  });
+});
 
 /**
  * End Main Functions
@@ -115,4 +131,30 @@ function scrollFunction() {
 function topFunction() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
+  
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      const navLink = document.querySelector(`nav ul li a[href="#${entry.target.id}"]`);
+  
+      // Check if the section is intersecting
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+        // Add 'active' class to the section and the nav link
+        entry.target.classList.add('your-active-class');
+        if (navLink) {
+          navLink.classList.add('active');
+        }
+      } else {
+        // Remove 'active' class from the section and the nav link
+        entry.target.classList.remove('your-active-class');
+        if (navLink) {
+          navLink.classList.remove('active');
+        }
+      }
+    });
+  }, options);
+  
+  // Observe each section
+  sections.forEach(section => {
+    observer.observe(section);
+  });
   

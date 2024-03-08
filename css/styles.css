@@ -262,3 +262,36 @@ body {
     background-color: #555;
 }
   
+nav ul li a.active {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 10px 15px; 
+    border-radius: 5px; 
+}
+  
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333; 
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li a {
+    color: white; 
+    padding: 10px 15px; 
+    transition: background-color 0.3s; 
+}
+
+nav ul li a:hover {
+    background-color: #ddd; 
+    color: #333; 
+}
